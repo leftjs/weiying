@@ -2,6 +2,7 @@ const webpack = require('webpack')
 module.exports = {
   router: {
     // middleware: 'check-auth'
+    base: '/weiying/'
   },
   /*
   ** Headers of the page
