@@ -33,7 +33,7 @@ module.exports = {
     '~plugins/vuex-router-sync',
     '~plugins/element-ui',
     '~plugins/bootstrap',
-    '~plugins/toastr'
+    '~plugins/toastr',
   ],
   /*
   ** Customize the progress-bar color
@@ -43,7 +43,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['jquery', 'bootstrap', 'toastr'],
+    vendor: ['jquery', 'bootstrap', 'toastr', 'moment', 'lodash', 'firebase', 'axios', 'bluebird', 'element-ui'],
     plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',

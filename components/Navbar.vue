@@ -15,7 +15,6 @@
         <ul class="nav navbar-nav">
           <li :class="{active: path === '/'}"><nuxt-link to="/">首页</nuxt-link></li>
           <li :class="{active: path === '/manufacture-manage'}"><nuxt-link to="/manufacture-manage" >加工管理</nuxt-link></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><nuxt-link to="/sign-in-up" >登录</nuxt-link></li>
@@ -48,7 +47,7 @@
           // Sign-out successful.
           console.log('注销成功')
           that.$nuxt.$store.commit('setUser', null)
-          that.$router.push('/')
+          that.$router.push('/sign-in-up')
         }, function(error) {
           // An error happened.
           console.log('logout error')

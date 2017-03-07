@@ -76,7 +76,7 @@
     watch: {
       isAuthenticated: function(val) {
         if(val) {
-          this.$router.push('/')
+          this.$router.push('/manufacture-manage')
         }
       }
     }

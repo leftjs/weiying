@@ -179,6 +179,7 @@
   import Promise, {promisify} from 'bluebird'
   import _ from 'lodash'
   import {formatFirstErrorCallback} from '../utils'
+  import moment from 'moment'
   export default {
     data() {
       const validateNotZero = (fieldName) => {
@@ -302,7 +303,7 @@
             let specificType = await specificTypeListener(value.type)('value')
             return {
               ...value,
-              date: (new Date(value.date)).toLocaleDateString(),
+              date: (moment(value.date).format('YYYY/M/D')),
               id,
               ...specificType.val(),
             }
@@ -315,8 +316,7 @@
         this.createRef('setting').set(setting)
       },
       convertDateToMilliseconds(dateString) {
-        let date = new Date(dateString)
-        return date.getTime()
+        return moment(dateString, 'YYYY-MM-DD').valueOf()
       },
       deleteItemFromDb(dbName, id) {
         this.createRef(dbName).child(id).remove().then(() => toastr.success('删除成功') && dbName === 'record' && this.fetchRecordByStartAndEnd(this.dateRange) ).catch(() => toastr.error('删除失败'))
@@ -369,17 +369,17 @@
           let arr = /(.*)-(.*)/.exec(this.filterDate)
           let year = parseInt(arr[1])
           let month = parseInt(arr[2])
-          this.dateRange.end = new Date(`${year}-${month}-${this.setting.settleDay}`).getTime()
+          this.dateRange.end = moment(`${year}-${month}-${this.setting.settleDay}`, 'YYYY-M-D').valueOf()
           if (month === 1) {
-            this.dateRange.start =  new Date(`${year - 1}-12-${this.setting.settleDay + 1}`).getTime()
+            this.dateRange.start =  moment(`${year - 1}-12-${this.setting.settleDay + 1}`, 'YYYY-M-D').valueOf()
           }else {
-            this.dateRange.start = new Date(`${year}-${month -1}-${this.setting.settleDay + 1}`).getTime()
+            this.dateRange.start = moment(`${year}-${month -1}-${this.setting.settleDay + 1}`, 'YYYY-M-D').valueOf()
           }
         }else {
           // 按年
           let year = parseInt(this.filterDate)
-          this.dateRange.start = new Date(`${year}-1-1`).getTime()
-          this.dateRange.end = new Date(`${year}-12-31`).getTime()
+          this.dateRange.start = moment(`${year}-1-1`, 'YYYY-M-D').valueOf()
+          this.dateRange.end = moment(`${year}-12-31`, 'YYYY-M-D').valueOf()
         }
         this.fetchRecordByStartAndEnd(this.dateRange)
       }
